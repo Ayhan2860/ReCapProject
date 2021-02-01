@@ -9,6 +9,6 @@ namespace Business.Abstract
     {
         List<Car> GetAll();
 
-       
+        void Add(Car car);
     }
 }

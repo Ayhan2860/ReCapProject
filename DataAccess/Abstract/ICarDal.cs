@@ -19,5 +19,6 @@ namespace DataAccess.Abstract
 
         List<Car> GetById(int carId);
         void Add();
+        int GetAll(int carId);
     }
 }
