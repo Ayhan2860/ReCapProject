@@ -5,10 +5,7 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-   public interface ICarDal:IEntityReposity<Car>
+   public interface IColorDal:IEntityReposity<Color>
     {
-        
-
-        
     }
 }
