@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using Core.Entities;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
@@ -9,56 +10,32 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-             CarTest();
-            //ColorTest();
-            //BrandTest();
-
-        }
-
-
-
-
-
-
-
-
-
-        private static void BrandTest()
-        {
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
-            brandManager.Add(new Brand { BrandId = 6, BrandName = "Citroen" });
-
-            foreach (var brand in brandManager.GetBrandsAll())
-            {
-                Console.WriteLine($"{brand.BrandName} / {brand.BrandId}");
-            }
-        }
-
-        private static void ColorTest()
-        {
-            ColorManager colorManager = new ColorManager(new EfColorDal());
-
-            colorManager.Add(new Color { ColorId = 6, ColorName = "Turuncu" });
-
-            foreach (var color in colorManager.GetAll())
-            {
-                Console.WriteLine($"{color.ColorName} / {color.ColorId}");
-            }
-        }
-
-        private static void CarTest()
-        {
             CarManager carManager = new CarManager(new EfCarDal());
-            //carManager.Add(new Car { ColorId = 4, BrandId = 3, CarId = 6, CarName = "Cadillac", DailyPrice = 340, ModelYear = 2021, Description = "Cadillac X-T5" });
-          
-            //carManager.Delete(new Car { CarId = 8 });
-            //carManager.Update(new Car { ColorId = 4, BrandId = 2, CarName="Mercedes",  CarId = 4, DailyPrice = 259, ModelYear = 2018, Description = "Mercedes-AMG A 35" });
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
 
-            foreach (var car in carManager.GetCarsDetail())
-            {
-                Console.WriteLine(car.CarName);
-                Console.WriteLine("#########################");
-            }
+           var addedColor = colorManager.Add(new Color { ColorName = "Mor" });
+            Console.Write(addedColor.Message);
+            //brandManager.Add(new Brand { BrandName = "Hyundai" });
+            carManager.Add(new Car { CarName = "Hyundai", DailyPrice = 240, BrandId = 8, ColorId = 4, ModelYear = 2018, Description = "Hyundai Accent Düz Vites" });
+
+
+
+
+            //foreach (var car in carManager.GetAll().Data)
+            //{
+            //    Console.WriteLine(car.CarName + " - " + car.DailyPrice);
+
+
+            //}
+            var carsId = carManager.GetById(2).Data;
+
+
+
+            Console.WriteLine(carsId.CarName +"-" +carsId.DailyPrice +"-"+ carsId.Description);
+            Console.WriteLine(carManager.GetById(2).Message);
+            Console.ReadLine();
+
         }
     }
 }
