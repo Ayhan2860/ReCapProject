@@ -14,8 +14,8 @@ namespace ConsoleUI
             ColorManager colorManager = new ColorManager(new EfColorDal());
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             UserManager userManager = new UserManager(new EfUserDal());
-            //RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            //CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
 
             //GetBrandsAll(brandManager);
             //GetAllColor(colorManager);
@@ -23,17 +23,16 @@ namespace ConsoleUI
             // CarAdd(carManager, colorManager, brandManager);
             // ColorAdd(colorManager);
             //BrandAdd(brandManager);
-          
-
-
-
+            // UserGetAll(userManager);
+            //UserGet(userManager);
+           // GetDetailCarAll(carManager);
 
             int valueNum = 0;
             string valueSt = "";
 
             while (true)
             {
-              
+
                 Menus();
                 Console.Write("Lütfen Bir Seçim Yapınız:   ");
                 valueSt = Console.ReadLine();
@@ -56,7 +55,7 @@ namespace ConsoleUI
                             {
                                 Console.WriteLine("Giriş Yaptınız İlerlemek için Enter'a Basınız");
                                 Console.ReadLine();
-                             
+
                                 while (true)
                                 {
                                     LoginMenus();
@@ -74,17 +73,89 @@ namespace ConsoleUI
                                             CarAdd(carManager, colorManager, brandManager);
                                             break;
                                         case "4":
-                                            Console.Clear();
-                                            Console.Write("Aradığınız Aracın Id Numarasını Giriniz: ");
-                                            var carIdValue = int.Parse(Console.ReadLine());
-                                            var carResultId = carManager.GetById(carIdValue).Data;
-                                            Console.WriteLine("Araç Adı: {0} - Açıklama: {1} - Günlük Fiyat: {2}", carResultId.CarName, carResultId.Description, carResultId.DailyPrice);
-                                            Console.ReadLine();
-                                            Console.Clear();
+                                            NewCarAdded(carManager);
                                             break;
-                               
-                                      
-                                      
+                                        case "5":
+                                            var resultNewCustomer = new Customer { };
+                                            var resultNewRental = new Rental { };
+                                          
+
+
+                                            if (user.Email == emailLogin)
+                                            {
+                                                Console.ReadLine();
+                                                Console.Clear();
+                                                resultNewCustomer.UserId = user.UserId;
+                                                Console.Write("Müsteri Numaranız: ");
+                                                Console.WriteLine(user.UserId);
+
+                                               
+
+                                                resultNewCustomer.CustomerName = user.FirstName + " " + user.LastName;
+
+
+                                                Console.Write("Müsteri Bilgileriniz: ");
+                                                Console.WriteLine(user.FirstName + " " + user.LastName);
+
+                                                Console.ReadLine();
+                                                Console.Clear();
+
+
+                                                Console.Write("Lütfen Şirket İsmi Giriniz ");
+                                                resultNewCustomer.CompanyName = Console.ReadLine();
+
+                                                Console.ReadLine();
+                                                Console.Clear();
+
+                                                Console.Write("Araç Kiralamak İçin Enter'a Basınız ");
+
+                                                Console.ReadLine();
+                                                Console.Clear();
+
+                                                Console.Write("Araçlarımız ");
+                                                GetDetailCarAll(carManager);
+                                                Console.Write("Kiralamak İstediğiniz Araçın Id Numarasını Giriniz  ");
+                                                resultNewRental.CarId = int.Parse(Console.ReadLine());
+                                                resultNewRental.CustomerId = resultNewCustomer.CustomerId;
+                                                resultNewRental.RentDate = DateTime.Now;
+
+                                               
+                                            
+                                                var resultAdded =  rentalManager.Add(resultNewRental);
+                                                if (!resultAdded.Success)
+                                                {
+                                                    Console.Clear();
+                                                    Console.WriteLine("Seçtiğiniz "+resultAdded.Message );
+                                                    Console.ReadLine();
+                                                    Console.Clear();
+                                                }
+                                                else
+                                                {
+                                                    Console.Write("Oynalamak İçin Enter'a Basın \n");
+                                                    Console.ReadLine();
+                                                    var resultCustomerAdded = customerManager.Add(resultNewCustomer);
+                                                    Console.WriteLine(resultAdded.Message + " "+ resultCustomerAdded.Message);
+                                                }
+                                                
+
+                                               
+                                                Console.Clear();
+
+                                            }
+
+                                            
+
+                                             
+
+                                           
+
+
+
+
+                                            break;
+
+
+
                                     }
 
 
@@ -94,7 +165,7 @@ namespace ConsoleUI
                             Console.Clear(); Console.WriteLine("Bilgilerinizi Lütfen Kontrol Ediniz");
                             Console.ReadLine(); Console.Clear();
                         }
-                        
+
                         break;
 
 
@@ -107,7 +178,41 @@ namespace ConsoleUI
 
         }
 
-        
+        private static void GetDetailCarAll(CarManager carManager)
+        {
+            foreach (var car in carManager.GetCarsDetail().Data)
+            {
+                Console.WriteLine("{0} {1} {2} {3}", car.CarId, car.BrandName, car.ColorName, car.DailyPrice);
+            }
+        }
+
+        private static void UserGet(UserManager userManager)
+        {
+            foreach (var user in userManager.GetAll().Data)
+            {
+                Console.WriteLine(user.Email);
+            }
+        }
+
+        private static void NewCarAdded(CarManager carManager)
+        {
+            Console.Clear();
+            Console.Write("Aradığınız Aracın Id Numarasını Giriniz: ");
+            var carIdValue = int.Parse(Console.ReadLine());
+            var carResultId = carManager.GetById(carIdValue).Data;
+            Console.WriteLine("Araç Adı: {0} - Açıklama: {1} - Günlük Fiyat: {2}", carResultId.CarName, carResultId.Description, carResultId.DailyPrice);
+            Console.ReadLine();
+            Console.Clear();
+        }
+
+        private static void UserGetAll(UserManager userManager)
+        {
+            foreach (var user in userManager.GetAll().Data)
+            {
+                Console.WriteLine("{0} {1} {2}", user.FirstName, user.LastName, user.Email);
+            }
+        }
+
 
         private static void UserRegister(UserManager userManager)
         {
@@ -176,7 +281,7 @@ namespace ConsoleUI
         }
         private static void LoginMenus()
         {
-            string[] menus = new string[] { "Marka Ekleme", "Renk Ekleme", "Araç Ekleme","Araç Bul" };
+            string[] menus = new string[] { "Marka Ekleme", "Renk Ekleme", "Araç Ekleme","Araç Bul","Araç Kirala" };
             for (int i = 0; i < menus.Length; i++)
             {
                 Console.WriteLine($"{i + 1} {menus[i]}");

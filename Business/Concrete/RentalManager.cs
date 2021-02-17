@@ -3,6 +3,7 @@ using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,7 +28,7 @@ namespace Business.Concrete
                 {
                     if (rentalReturn.ReturnDate == null)
                     {
-                        return new ErrorResult(Messages.NotRentalAdded);
+                        return new ErrorResult(Messages.Cars+Messages.NotRentalAdded);
                     }
                 }
             }
@@ -55,6 +56,10 @@ namespace Business.Concrete
 
         }
 
+        public IDataResult<List<RentalDetailDto>> GetRentalDetailDto()
+        {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetailDtos(), Messages.Listed);
+        }
 
         public IResult Update(Rental rental)
         {
