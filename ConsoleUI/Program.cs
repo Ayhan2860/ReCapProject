@@ -113,30 +113,19 @@ namespace ConsoleUI
                                                 Console.Clear();
 
                                                 Console.Write("Araçlarımız ");
+                                                customerManager.Add(resultNewCustomer);
                                                 GetDetailCarAll(carManager);
                                                 Console.Write("Kiralamak İstediğiniz Araçın Id Numarasını Giriniz  ");
                                                 resultNewRental.CarId = int.Parse(Console.ReadLine());
+                                              
                                                 resultNewRental.CustomerId = resultNewCustomer.CustomerId;
                                                 resultNewRental.RentDate = DateTime.Now;
 
-                                               
-                                            
-                                                var resultAdded =  rentalManager.Add(resultNewRental);
-                                                if (!resultAdded.Success)
-                                                {
-                                                    Console.Clear();
-                                                    Console.WriteLine("Seçtiğiniz "+resultAdded.Message );
-                                                    Console.ReadLine();
-                                                    Console.Clear();
-                                                }
-                                                else
-                                                {
-                                                    Console.Write("Oynalamak İçin Enter'a Basın \n");
-                                                    Console.ReadLine();
-                                                    var resultCustomerAdded = customerManager.Add(resultNewCustomer);
-                                                    Console.WriteLine(resultAdded.Message + " "+ resultCustomerAdded.Message);
-                                                }
-                                                
+                                                Console.Write("Onaylamak İçin Enter'a Bas");
+                                                rentalManager.Add(resultNewRental);
+
+
+
 
                                                
                                                 Console.Clear();
