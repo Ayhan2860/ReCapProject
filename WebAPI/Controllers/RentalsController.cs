@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpPut("update")]
+        [HttpPost("update")]
         public IActionResult Update(Rental rental)
         {
             var result = _rentalService.Update(rental);
@@ -43,7 +43,7 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpDelete("delete")]
+        [HttpPost("delete")]
         public IActionResult Delete(Rental rental)
         {
             var result = _rentalService.Delete(rental);
@@ -69,6 +69,18 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
 
         }
+
+        [HttpGet("rentaldetail")]
+        public IActionResult GetRentalDetailDto()
+        {
+            var result = _rentalService.GetRentalDetailDtos();
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Data);
+        }
+
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {

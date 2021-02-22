@@ -11,6 +11,10 @@ namespace Business.ValidationRules.FluentValidation
         public UserValidator()
         {
             
+            RuleFor(us => us.Password).NotEmpty();
+
         }
+
+       
     }
 }
