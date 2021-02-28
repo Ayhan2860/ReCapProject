@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Business.Constants
 {
-  public static  class Messages
+    public static class Messages
     {
         //Success Message
         public static string Added = " Sisteme Eklendi";
@@ -34,9 +34,21 @@ namespace Business.Constants
         public static string Customer = "Müşteri ";
         public static string User = "Kullanıcı ";
         public static string Rental = "Kiralanan  ";
-        
 
+        public static string ImageUploadSuccessful = "Resim Başarıyla Yüklendi";
 
+        public static string ImageNotUpload = "Resim Yükleme Başarısız";
 
+        public static string FailAddedImageLimit = "Resim Yükleme Limitine Ulaştınız";
+
+        public static string AddedPhoto = "Aracın Fotoğrafı Başarıyla Yüklendi";
+
+        public static string NotPhotoLimit = "Fotoğraf Limitinizi Doldurdunuz";
+
+        public static string GetByIdPhoto = "Resim Id Numarasına Göre Bulundu";
+
+        public static string Successful = "Default Resim";
+
+        public static string PhotoDeleted = "Fotoğraflar Silindi";
     }
 }

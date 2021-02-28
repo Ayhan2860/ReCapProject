@@ -6,12 +6,14 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
-
+using Core.Utilities.Results;
 
 namespace DataAccess.Concrete.EntityFramework
 {
     public class EfRentalDal : EfEntityRepositoryBase<Rental, ReCapContext>, IRentalDal
     {
+       
+
         public List<RentalDetailDto> GetRentalDetailDtos()
         {
             using (ReCapContext context = new ReCapContext())
@@ -33,5 +35,7 @@ namespace DataAccess.Concrete.EntityFramework
                 return result.ToList();
             }
         }
+
+       
     }
 }
