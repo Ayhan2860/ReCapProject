@@ -20,7 +20,7 @@ namespace Business.Concrete
         {
             _rentalDal = rentalDal;
         }
-        [ValidationAspect(typeof(RentalValidator))]
+
         public IResult Add(Rental rental)
         {
             var rentalsReturn = _rentalDal.GetAll(r => r.CarId == rental.CarId);
@@ -41,24 +41,23 @@ namespace Business.Concrete
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
-            return new SuccessResult(Messages.Rental+Messages.Deleted);
+            return new SuccessResult(Messages.Rental + Messages.Deleted);
         }
 
         public IDataResult<List<Rental>> GetAll()
         {
-            
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(),Messages.Rental + Messages.Listed);
+
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.Rental + Messages.Listed);
         }
 
         public IDataResult<Rental> GetById(int rentalId)
         {
-           
-            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.RentalId == rentalId),Messages.Rental + Messages.GetByListId);
-           
+
+            return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.RentalId == rentalId), Messages.Rental + Messages.GetByListId);
+
 
         }
 
-        [ValidationAspect(typeof(RentalValidator))]
         public IDataResult<List<RentalDetailDto>> GetRentalDetailDtos()
         {
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetailDtos(), Messages.Listed);

@@ -13,7 +13,7 @@ namespace ConsoleUI
             CarManager carManager = new CarManager(new EfCarDal());
             ColorManager colorManager = new ColorManager(new EfColorDal());
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            UserManager userManager = new UserManager(new EfUserDal());
+            
             CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
             //CarManagerTest(carManager);
@@ -24,7 +24,7 @@ namespace ConsoleUI
 
             //var result = rentalManager.Add(new Rental { CarId = 3018, CustomerId = 6033, RentDate = DateTime.Now });
             //Console.WriteLine(result.Message);
-            var result = rentalManager.Add(new Rental { RentalId = 3015,  ReturnDate = DateTime.Now});
+            var result = rentalManager.Add(new Rental { RentalId = 3015, ReturnDate = DateTime.Now });
             Console.WriteLine(result.Message);
 
 
@@ -65,25 +65,7 @@ namespace ConsoleUI
             Console.ReadLine();
         }
 
-        private static void UserManagerTest(UserManager userManager)
-        {
-            //userManager.Add(new User { Email = "hh@gmail", FirstName = "İlker", LastName = "Yiğitalp", Password = "111" });
-            //userManager.Update(new User {UserId=3004, Email = "cevat@gmail", FirstName = "Cevat", LastName = "Erdoğmuş", Password = "222" });
-            //userManager.Delete(new User { UserId = 2008 });
-
-            Console.WriteLine("GetAll Result");
-            foreach (var user in userManager.GetAll().Data)
-            {
-                Console.WriteLine("{0} - {1} - {2} - {3} - {4}", user.UserId, user.FirstName, user.LastName, user.Email, user.Password);
-            }
-            Console.ReadLine();
-            Console.Clear();
-            Console.WriteLine("GetById Result");
-
-            var result = userManager.GetById(2004).Data;
-            Console.WriteLine("{0} - {1} - {2} - {3} - {4}", result.UserId, result.FirstName, result.LastName, result.Email, result.Password);
-            Console.ReadLine();
-        }
+      
 
         private static void BrandManagerTest(BrandManager brandManager)
         {
@@ -142,7 +124,7 @@ namespace ConsoleUI
             var result = carManager.GetById(3017).Data;
 
 
-                Console.WriteLine("{0} - {1} - {2} - {3} - {4} - {5} - {6}", result.CarId, result.BrandId, result.ColorId, result.CarName, result.DailyPrice, result.ModelYear, result.Description);
+            Console.WriteLine("{0} - {1} - {2} - {3} - {4} - {5} - {6}", result.CarId, result.BrandId, result.ColorId, result.CarName, result.DailyPrice, result.ModelYear, result.Description);
 
             Console.ReadLine();
             Console.Clear();
@@ -170,7 +152,7 @@ namespace ConsoleUI
                 Console.WriteLine("{0} - {1} - {2} - {3} - {4}", car.CarId, car.BrandName, car.ColorName, car.CarName, car.DailyPrice);
             }
             Console.ReadLine();
-          
+
         }
 
     }
