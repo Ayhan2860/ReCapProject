@@ -66,5 +66,6 @@ namespace Business.Constants
         public static string UserAlreadyExists = "Bu Kullanıcı Zaten Mevcut";
 
         public static string AccessTokenCreated = "Access Token Başarıyla Oluşturuldu";
+        public static string CarUpdated = "İşlem İptal Edildi.";
     }
 }

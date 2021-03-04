@@ -24,7 +24,6 @@ namespace WebAPI.Controllers
 
 
         [HttpGet("getall")]
-
          public IActionResult GetAll()
         {
             var result =  _carService.GetAll();
@@ -85,10 +84,22 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
         }
         // Add, Update, Delete <----> Post, Put, Delete
+        
         [HttpPost("add")]
         public IActionResult Add(Car car)
         {
             var result = _carService.Add(car);
+            if (result.Success)
+            {
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpPost("addtransaction")]
+        public IActionResult AddTransactionTest(Car car)
+        {
+            var result = _carService.AddTransationalTest(car);
             if (result.Success)
             {
                 return Ok(result.Message);

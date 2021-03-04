@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -42,6 +43,7 @@ namespace Business.Concrete
             return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == brandId),Messages.Brand +"Brand"+ Messages.GetById);
         }
 
+        [SecuredOperation("admin")]
         public IDataResult<List<Brand>> GetBrandsAll()
         {
             

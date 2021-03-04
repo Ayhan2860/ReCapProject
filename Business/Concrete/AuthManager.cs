@@ -55,6 +55,7 @@ namespace Business.Concrete
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 status = true
+                
             };
             _userService.Add(user);
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
