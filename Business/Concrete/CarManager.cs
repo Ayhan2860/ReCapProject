@@ -55,6 +55,7 @@ namespace Business.Concrete
         }
 
         //[CacheAspect]
+        [SecuredOperation("admin,car.add")]
         [PerformanceAspect(5)]
         public IDataResult<List<Car>> GetAll()
         {
