@@ -45,12 +45,12 @@ namespace Business.Concrete
 
         public IResult Delete(CarImage carImage)
         {
-            var getImage = _carImageDal.Get(ci => ci.Id == carImage.Id);
+            var getImage = _carImageDal.Get(ci => ci.Id == carImage.Id).ImagePath;
             if (getImage == null)
             {
                 return new ErrorResult();
             }
-            FileUpload.Delete(getImage.ImagePath);
+            FileUpload.Del(getImage);
             _carImageDal.Delete(carImage);
             return new SuccessResult(Messages.PhotoDeleted);
 
@@ -95,7 +95,7 @@ namespace Business.Concrete
             {
                 return new ErrorResult();
             }
-            FileUpload.Delete(getImage.ImagePath);
+            FileUpload.Del(getImage.ImagePath);
             var updatePath = FileUpload.AddFile(file).Message;
             carImage.ImagePath = updatePath;
             _carImageDal.Update(carImage);

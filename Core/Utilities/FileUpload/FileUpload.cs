@@ -39,17 +39,6 @@ namespace Core.Utilities.FileUpload
 
         }
 
-
-
-
-
-
-
-
-
-
-
-
         private static bool CreateFolder(string folderPath)
         {
            
@@ -68,20 +57,21 @@ namespace Core.Utilities.FileUpload
             return (fileName, folderPath, lowerFolderPath, filePath);
         }
 
-        public static IResult Delete(string filePath)
+        public static IResult Del(string file)
         {
-            if (File.Exists(filePath))
-            {
-                File.Delete(filePath);
-                return new SuccessResult();
-            }
+            string folderPath = Environment.CurrentDirectory + @"\wwwroot\";
 
-            return new ErrorResult();
+            DeleteOldImageFile((folderPath + file).Replace("/", "\\"));
+            return new SuccessResult();
+           
         }
 
-        //public static IResult Update(string ımagePath)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        private static void DeleteOldImageFile(string filePath)
+        {
+            if (File.Exists(filePath.Replace("/", "\\")))
+            {
+                File.Delete(filePath.Replace("/", "\\"));
+            }
+        }
     }
 }
